@@ -1,18 +1,18 @@
 {% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
 
 package:
-  name: munch-group-template
+  name: notion-gh-pages
   version: {{ pyproject.get("project").get("version") }}
 
 source:
-  git_url: https://github.com/munch-group/munch-group-template.git
+  git_url: https://github.com/munch-group/notion-gh-pages.git
 
 build:
   number: 0
   script: $PYTHON -m pip install . -vv
   python_version_independent: true
   entry_points:
-    - munch-group-template = munch_group_template:munch_group_template
+    - notion-gh-pages = notion_gh_pages:notion_gh_pages
 
 requirements:
   host:
@@ -37,10 +37,10 @@ dependencies:   # keep this block with only these packages
 
 test:
   imports:
-    - munch_group_template
+    - notion_gh_pages
 
 about:
-  home: https://github.com/munch-group/munch-group-template.git
+  home: https://github.com/munch-group/notion-gh-pages.git
   license: MIT
-  dev_url: https://github.com/munch-group/munch-group-template.git
-  doc_url: https://munch-group.org/munch-group-template
+  dev_url: https://github.com/munch-group/notion-gh-pages.git
+  doc_url: https://munch-group.org/notion-gh-pages

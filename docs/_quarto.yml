@@ -37,7 +37,7 @@ interlinks:
     #   inv: objects-test.txt
 
 website:
-  title: "munch-group-template"
+  title: "notion-gh-pages"
   page-navigation: true
   navbar:
     left:
@@ -47,7 +47,7 @@ website:
         text: API reference
     right:
       - icon: github
-        href: https://github.com/munch-group/munch-group-template/
+        href: https://github.com/munch-group/notion-gh-pages/
   sidebar:
     - id: pages
       title: Get Started
@@ -74,7 +74,7 @@ format:
 quartodoc:
   style: pkgdown
   dir: api
-  package: munch_group_template
+  package: notion_gh_pages
   render_interlinks: true
   options:
     signature_name: full
@@ -86,13 +86,13 @@ quartodoc:
 
   sections:
     - title: Some section
-      package: munch_group_template.modulename
+      package: notion_gh_pages.modulename
       desc: |
         Some description...
       contents:
         - functionname
     - title: Some other section
-      package: munch_group_template.modulename
+      package: notion_gh_pages.modulename
       desc: |
         Some description...
       contents:
