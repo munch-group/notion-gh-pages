@@ -1,0 +1,146 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "munch-group-template"
+version = "0.1.1.rc1"
+description = "Project description"
+authors = [
+    {name = "Your Name", email = "your@email.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "cryptography",
+    "jupyterlab>=4",
+    "nbdime", 
+    "seaborn",
+    "scipy",
+    "scikit-learn",
+    "statsmodels",
+]
+
+[project.urls]
+Homepage = "https://github.com/munch-group/munch-group-template"
+Repository = "https://github.com/munch-group/munch-group-template"
+Documentation = "https://munch-group.org/munch-group-template"
+
+[project.scripts]
+munch-group-template = "munch_group_template:munch_group_template"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["test*"]
+
+[tool.setuptools.package-data]
+munch_group_template = ["data/*.txt", "data/*.csv", "data/*.pickle", "data/*.h5"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge", "munch-group"]
+platforms = ["osx-arm64", "win-64", "osx-64", "linux-64"]
+
+[tool.pixi.dependencies]
+python = ">=3.9"
+
+# [tool.pixi.pypi-dependencies]
+# Optional PyPI dependencies can be added here
+# Note: Some packages may not be available across all platforms
+
+[tool.pixi.environments]
+default = {solve-group = "default"}
+dev = {features = ["dev"], solve-group = "default"}
+
+[tool.pixi.feature.dev.dependencies]
+pytest = "*"
+setuptools = ">=65.0"
+wheel = "*"
+anthropic = "*"
+gitpython = "*"
+rpds-py = "*"
+jsonschema = "*"
+git = "*"
+git-lfs = "*"
+gh = "*"
+conda-build = "*"
+cryptography = "*"
+jupyterlab = ">=4"
+nbdime = "*"
+nodejs = "*"
+seaborn = "*"
+pytables = "*"
+pip = "*"
+
+
+[tool.pixi.tasks.init-project]
+cmd = "./scripts/template_init.py && ./.scripts/init-project.sh -y"
+description = "Initialize template and remove project-specific files"
+
+[tool.pixi.tasks.install-claude]
+cmd = "npm install -g @anthropic-ai/claude-code"
+
+[tool.pixi.tasks.claude]
+cmd = "bash ./.scripts/claude-session.sh {{ '--new' if 'new' in new }}"
+args = [ { arg = "new", default = "" } ]
+
+[tool.pixi.tasks.init-library]
+cmd = "./.scripts/init-library.sh -y"
+description = "Remove files not relevant to library development"
+
+[tool.pixi.tasks.init-template]
+cmd = "./.scripts/template_init.py"
+description = "Initialize template by renaming project files"
+
+[tool.pixi.tasks.install-dev]
+cmd = "pip install -e ."
+#cmd = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
+description = "Install the package in development mode"
+
+[tool.pixi.tasks.docs]
+cmd = "./.scripts/docs-run-notebooks.sh && ./.scripts/docs-build-render.sh"
+description = "Run documentation notebooks and build quartodoc api docs"
+
+[tool.pixi.tasks.git-remove-untracked]
+cmd = "git clean -fd"
+description = "Removes untracked files and directories but respects your .gitignores"
+
+[tool.pixi.tasks.test]
+cmd = "python -m unittest"
+description = "Run tests"
+
+ 
+
+# setup-kernel = "python -m ipykernel install --user --name franklin --display-name 'Franklin Python'"
+# quarto-render = { cmd = "quarto render", env = { QUARTO_PYTHON = ".pixi/envs/default/bin/python" } }
+
+[tool.pixi.tasks.bump-version]
+args = [
+  { "arg" = "kind", "default" = "patch" },  # can be patch, minor, major
+  { "arg" = "flag", "default" = "" },     # can be --pre, --release
+]
+cmd = "./.scripts/bump_version.py --{{ kind }} {{ flag }} &&  git add -u &&  git commit -m '{{ kind }} {{ flag }} version bump' && git push" 
+description = "Bump version patch and build/release conda packages"
+
+[tool.pixi.tasks.bump-changelog]
+cmd = "./.scripts/bump_changelog.py --yes"
+description = "Bump version patch and build/release conda packages"
+
+[tool.pixi.tasks.acp]
+args = [
+  { "arg" = "message", "default" = "update" },  # can be --patch, --minor, --major
+]
+cmd = "git add -u ; git commit -m '{{ message }}' ; git push"
+description = "git add commit push of tracked files with optional message"
+
+[tool.pixi.tasks.github-release]
+cmd = "./.scripts/release-tag.sh"
+description = "Release latest version on Github"
+

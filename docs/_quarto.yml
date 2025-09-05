@@ -1,0 +1,160 @@
+project:
+  type: website
+  output-dir: _build
+  # resources:
+    # - objects.txt
+    # - objects-test.txt
+
+execute:
+  freeze: auto
+  echo: true
+
+metadata-files:
+  - api/_sidebar.yml
+
+filters:
+  - "interlinks"
+
+interlinks:
+  fast: true
+  sources:
+    python:
+      url: https://docs.python.org/3/
+    griffe:
+      url: https://mkdocstrings.github.io/griffe/
+    numpy:
+      url: https://numpy.org/doc/stable/
+    pandas:
+      url: https://pandas.pydata.org/docs/
+    matplotlib:
+      url: https://matplotlib.org/stable/
+    scipy:
+      url: https://docs.scipy.org/doc/scipy/
+    statsmodels:
+      url: https://www.statsmodels.org/stable/      
+    # quartodoc-test:
+    #   url: https://machow.github.io/quartodoc
+    #   inv: objects-test.txt
+
+website:
+  title: "munch-group-template"
+  page-navigation: true
+  navbar:
+    left:
+      # - file: examples/
+      #   text: Examples
+      - href: api/
+        text: API reference
+    right:
+      - icon: github
+        href: https://github.com/munch-group/munch-group-template/
+  sidebar:
+    - id: pages
+      title: Get Started
+      style: floating
+      align: left
+      contents:
+        - section: "Overview"
+          contents:
+            - pages/overview.ipynb
+
+
+lightbox: true
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - api/_styles-quartodoc.css
+      - styles.css
+    toc: true
+    mermaid:
+      theme: neutral     
+
+quartodoc:
+  style: pkgdown
+  dir: api
+  package: munch_group_template
+  render_interlinks: true
+  options:
+    signature_name: full
+  renderer:
+    style: markdown
+    table_style: description-list
+  sidebar: "api/_sidebar.yml"
+  css: "api/_styles-quartodoc.css"
+
+  sections:
+    - title: Some section
+      package: munch_group_template.modulename
+      desc: |
+        Some description...
+      contents:
+        - functionname
+    - title: Some other section
+      package: munch_group_template.modulename
+      desc: |
+        Some description...
+      contents:
+        - scriptname
+
+
+# quartodoc:
+#   package: genominterv
+#   style: pkgdown
+#   dir: api
+#   render_interlinks: true
+#   options:
+#     signature_name: full
+#   renderer:
+#     style: markdown
+#     table_style: description-list
+#   sidebar: "api/_sidebar.yml"
+#   css: "api/_styles-quartodoc.css"
+
+#   sections:
+#     - title: Genomic set operations
+#       package: genominterv
+#       desc: |
+#         Set operations on pandas.DataFrames with columns for chromosome, start, and end.
+#       contents:
+#         - interval_diff     
+#         - interval_union   
+#         - interval_intersect 
+#         - interval_collapse
+#     - title: Remapping
+#       package: genominterv.remapping
+#       desc: |
+#         Mapping intervals relative to other coordinates.
+#       contents:        
+#         - interval_distance
+#         - remap_interval_data
+#     - title: Statistics
+#       package: genominterv.stats
+#       desc: Mapping intervals relative to other coordinates.
+#       contents:
+#         - proximity_test        
+#         - jaccard_stat
+#     - title: Decorators
+#       package: genominterv.decorators
+#       desc: |
+#         Utilities for user created genomic intervals and bootstrap tests.
+#       contents:
+#         - genomic 
+#         - bootstrap
+#     - title: Interval set utilities
+#       package: genominterv.interval_set_op
+#       desc: |
+#         Set operations on sorted lists of (start, end) tuples.
+#       contents:
+#         - union 
+#         - diff
+#         - invert
+#         - intersect
+#         - collapse
+#     - title: Interval mapping utilities
+#       package: genominterv.remapping
+#       desc: |
+#         Set operations on sorted lists of (start, end) tuples.
+#       contents:
+#         - remap 
