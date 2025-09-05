@@ -17,13 +17,9 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "cryptography",
-    "jupyterlab>=4",
-    "nbdime", 
-    "seaborn",
-    "scipy",
-    "scikit-learn",
-    "statsmodels",
+  "requests",
+  "bs4",
+  "notion-client",
 ]
 
 [project.urls]
